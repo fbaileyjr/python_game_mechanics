@@ -127,3 +127,10 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# exclude project stuff
+Pipfile
+Pipfile.lock
+game_mechanics.sublime-project
+game_mechanics.sublime-workspace
+
