@@ -37,24 +37,50 @@ game_over = False
 # declaring keyboard stuff
 x, y = (0, 0)
 
+# setting the clock
+clock = pygame.time.Clock()
+
+
 # main loop
 while not game_over:
-	for event in pygame.event.get():
-		if event.type == pygame.QUIT:
-			game_over = True
-		pressed = pygame.key.get_pressed()
-		if pressed[K_UP]:
-			y -= 0.5
-		if pressed[K_DOWN]:
-			y += 0.5
-		if pressed[K_RIGHT]:
-			x += 0.5
-		if pressed[K_LEFT]:
-			x -= 0.5
-    
-    # draw the sprite object
-	screen.blit(sprite1, (x, y))
+    # setting the frame rate
+    dt = clock.tick(100)
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            game_over = True
+        pressed = pygame.key.get_pressed()
+    # multiplying the frame rate times the movement variable
+    if pressed[K_UP]:
+        y -= 0.5 * dt
+    if pressed[K_DOWN]:
+        y += 0.5 * dt
+    if pressed[K_RIGHT]:
+        x += 0.5 * dt
+    if pressed[K_LEFT]:
+        x -= 0.5 * dt
 
-	# refresh the screen
-	pygame.display.update()
+    if pressed[K_SPACE]:
+        x, y = (0, 0)
+
+    if x > (screen.get_width() - spriteWidth):
+        x = screen.get_width() - spriteWidth
+
+    if x < 1:
+        x = 0
+
+    if y > (screen.get_height() - spriteHeight):
+        y = screen.get_height() - spriteHeight
+
+    if y < 1:
+        y = 0
+    # clear the screen
+    # fill the screen with color - RGB
+    screen.fill((0, 0, 0))
+
+   
+    # draw the sprite object
+    screen.blit(sprite1, (x, y))
+
+    # refresh the screen
+    pygame.display.update()
 pygame.quit()
